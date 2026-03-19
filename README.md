@@ -25,12 +25,18 @@
 | `start` | 重置计时并开启自动清理 | `/clearitems start` |
 | `stop` | 停止自动清理逻辑并隐藏 BossBar | `/clearitems stop` |
 
-## 🛠️ 安装与要求
+## 🛠️ 安装要求
 
 1.  **游戏版本**: Minecraft `1.21.x`
 2.  **加载器**: [Fabric Loader](https://fabricmc.net/)
 3.  **前置插件**: [Fabric API](https://modrinth.com/mod/fabric-api)
-4.  **安装说明**: 将下载好的 `.jar` 文件放入服务器或客户端的 `mods` 文件夹即可。
+
+> **注意**：该mod已移除 OP 权限限制。如果你的服务器属于公网开放服务器且担心恶意操作，请在配置文件中手动管理或使用权限插件。
+
+## ⚖️ 开源协议
+
+本项目采用 MIT License 开源。您可以自由地分发、修改和在您的服务器中使用。
+
 
 ## 📝 配置文件示例
 
