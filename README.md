@@ -6,7 +6,7 @@
   [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.x-blue.svg?style=for-the-badge&logo=minecraft)](https://modrinth.com/mod/clearitems)
   [![Platform](https://img.shields.io/badge/Platform-Fabric-lightgrey.svg?style=for-the-badge)](https://fabricmc.net/)
   [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
-  [![Modrinth](https://img.shields.io/badge/Modrinth-Download-00AF5C.svg?style=for-the-badge)](https://modrinth.com/mod/clearitems)
+  [![Stars](https://img.shields.io/github/stars/Miraitowa-alt/clearitems?style=for-the-badge&color=yellow)](https://github.com/Miraitowa-alt/clearitems/stargazers)
 
   **轻量、可视化的生产级 Fabric 清理方案 / Lightweight & Visualized Cleanup for Fabric.**
 </div>
@@ -17,35 +17,22 @@
 
 **ClearItems** 是一款专为 Fabric 1.21.x 开发的实体清理模组。它结合了直观的倒计时系统与灵活的白名单管理，旨在为服务器提供高效优化的同时，确保玩家物资安全。
 
-**ClearItems** is a high-performance cleanup mod for Fabric 1.21.x. It combines an intuitive countdown system with flexible whitelist management, ensuring server optimization without compromising player resources.
+**ClearItems** is a high-performance cleanup mod for Fabric 1.21.x. It combines an intuitive countdown system with flexible whitelist management.
 
 ---
 
 ## ✨ 核心特性 / Key Features
 
-* **📊 全程可视化 / Full Visualization**
-  使用快捷栏上方的 **ActionBar** 实时显示彩色倒计时。根据剩余时间自动切换（绿色 > 黄色 > 红色加粗），不遮挡战斗视线，完美兼容重型整合包。
-  *Real-time **ActionBar** countdown with dynamic colors (Green > Yellow > Bold Red). Avoids HUD clutter and overlaps.*
-
-* **🛡️ 智能动态白名单 / Smart Dynamic Whitelist**
-  支持在游戏内实时管理受保护物品（如钻石、附魔书）。被加入白名单的物品将永远不会被自动清理。
-  *Manage protected items (e.g., diamonds, enchanted books) in-game via commands. Whitelisted items are never cleared.*
-
-* **📈 精准清理战报 / Precise Reporting**
-  精确统计并通报掉落物的**具体总个数**（如：一组 64 个物品计为 64 个），让优化效果一目了然。
-  *Accurately counts total item stacks (e.g., 64 items counted as 64, not 1 entity) for clear feedback.*
-
-* **🚀 极简性能开销 / Minimal Overhead**
-  基于原生 Fabric API 构建，针对重度混淆环境深度优化，确保秒速启动与极端稳定性。
-  *Built on native Fabric API; optimized for heavily obfuscated environments and maximum uptime.*
+* **📊 全程可视化**: 使用 **ActionBar** 实时显示彩色倒计时，不遮挡战斗视线，完美兼容重型整合包。
+* **🛡️ 智能动态白名单**: 游戏内实时管理受保护物品（如钻石、附魔书）。
+* **📈 精准清理战报**: 精确统计并通报掉落物的**具体总个数**，优化效果一目了然。
+* **🚀 极简性能开销**: 基于原生 Fabric API 构建，针对重度混淆环境深度优化。
 
 ---
 
 ## ⭐ 支持本项目 / Support the Project
 
-如果您觉得 **ClearItems** 对您的服务器有所帮助，请考虑在 GitHub 上点亮一颗小星星！您的支持是我持续更新的最大动力。
-
-If you find **ClearItems** helpful for your server, please consider giving it a **Star** on GitHub! Your support is the greatest motivation for continuous updates.
+如果您觉得 **ClearItems** 对您的服务器有所帮助，请考虑点亮一颗小星星！您的支持是我持续更新的最大动力。
 
 <div align="center">
   <a href="https://github.com/Miraitowa-alt/clearitems">
@@ -59,7 +46,7 @@ If you find **ClearItems** helpful for your server, please consider giving it a 
 
 | 指令 (Command) | 说明 (Description) | 示例 (Example) |
 | :--- | :--- | :--- |
-| `set <seconds>` | 修改自动清理的时间间隔 (1-3600s) / Set interval | `/clearitems set 600` |
+| `set <seconds>` | 修改自动清理的时间间隔 / Set interval | `/clearitems set 600` |
 | `add <item_id>` | 将物品加入白名单 / Add item to whitelist | `/clearitems add minecraft:diamond` |
 | `remove <id>` | 将物品从白名单移除 / Remove from whitelist | `/clearitems remove minecraft:stone` |
 | `list` | **[New]** 查看当前白名单 / View whitelist | `/clearitems list` |
@@ -71,7 +58,6 @@ If you find **ClearItems** helpful for your server, please consider giving it a 
 ## 🔑 权限节点 / Permissions
 
 本模组已移除硬编码的 OP 权限限制。在公网服务器上，请务必配合 **LuckPerms** 使用以下节点：
-*Mandatory OP checks removed; use **LuckPerms** for node-based control:*
 
 * `clearitems.admin`: 拥有所有指令权限 / Full access to all commands.
 * `clearitems.list`: 仅允许查看白名单 / Permission to view the whitelist.
