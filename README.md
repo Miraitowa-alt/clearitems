@@ -1,60 +1,81 @@
-# 🧹 ClearItems - Fabric 1.21.x
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Miraitowa-alt/clearitems/main/src/main/resources/icon.png" width="128" height="128" alt="ClearItems Icon">
 
-![ClearItems Icon](src/main/resources/icon.png)
+  # ClearItems - 自动化实体清理 / Automated Entity Cleanup
 
-**ClearItems** 是一款专为 Fabric 1.21.x 开发的轻量级、可视化服务器掉落物清理模组。它结合了直观的倒计时系统与灵活的白名单管理，旨在为服务器提供高效优化的同时，确保玩家物资的安全。
+  [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.x-blue.svg?style=flat-square&logo=minecraft)](https://modrinth.com/mod/clearitems)
+  [![Platform](https://img.shields.io/badge/Platform-Fabric-lightgrey.svg?style=flat-square)](https://fabricmc.net/)
+  [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
+  [![Modrinth](https://img.shields.io/badge/Modrinth-Download-00AF5C.svg?style=flat-square)](https://modrinth.com/mod/clearitems)
 
-## ✨ 核心特性
+  **轻量、可视化的生产级 Fabric 清理方案 / Lightweight & Visualized Cleanup for Fabric.**
+</div>
 
-* **📊 全程可视化**：屏幕上方常驻蓝色 **BossBar** 进度条，实时显示下一次清理的倒计时，让玩家有充裕时间回收重要物品。
-* **🛡️ 智能动态白名单**：支持在游戏内实时添加/移除受保护物品。被加入白名单的物品（如钻石、附魔书等）将永远不会被自动清理。
-* **📈 精准清理战报**：清理完成后，系统会精确统计并通报掉落物的**具体总个数**（例如：一堆64个石头计为64个，而非1个实体），让优化效果一目了然。
-* **⚙️ 即时生效配置**：所有指令修改（时间间隔、白名单增删）均即时生效并自动持久化到 `config/clearitems.json`，无需重启服务器。
-* **🚀 极简性能开销**：基于原生 Fabric API 构建，代码逻辑简洁，不占额外内存或 CPU 资源。
+---
 
-## 🎮 指令指南
+## 📖 简介 / Introduction
 
-模组主指令为 `/clearitems`，支持以下子指令：
+**ClearItems** 是一款专为 Fabric 1.21.x 开发的实体清理模组。它结合了直观的倒计时系统与灵活的白名单管理，旨在为服务器提供高效优化的同时，确保玩家物资安全。
 
-| 指令 | 说明 | 使用示例 |
+**ClearItems** is a cleanup mod for Fabric 1.21.x. It combines an intuitive countdown system with flexible whitelist management, ensuring server optimization without compromising player resources.
+
+---
+
+## ✨ 核心特性 / Key Features
+
+* **📊 全程可视化 / Full Visualization**
+  使用快捷栏上方的 **ActionBar** 实时显示彩色倒计时。根据剩余时间自动切换（绿色 > 黄色 > 红色加粗），不遮挡战斗视线，完美兼容重型整合包。
+  *Real-time **ActionBar** countdown with dynamic colors (Green > Yellow > Bold Red). Avoids HUD clutter in massive modpacks.*
+
+* **🛡️ 智能动态白名单 / Smart Dynamic Whitelist**
+  支持在游戏内通过 `/clearitems add/remove` 实时管理受保护物品（如钻石、附魔书）。
+  *Manage protected items (e.g., diamonds, enchanted books) in-game via commands.*
+
+* **📈 精准清理战报 / Precise Reporting**
+  精确统计掉落物的**具体总个数**（如：一组 64 个物品计为 64 个），优化效果一目了然。
+  *Accurately counts total item stacks (e.g., 64 items counted as 64, not 1 entity).*
+
+* **🚀 极简性能开销 / Minimal Overhead**
+  基于原生 Fabric API 构建，针对重度混淆环境深度优化，确保秒速启动与极端稳定性。
+  *Built on native Fabric API; optimized for heavily obfuscated environments and stability.*
+
+---
+
+## 🎮 指令指南 / Commands
+
+| 指令 (Command) | 说明 (Description) | 使用示例 (Example) |
 | :--- | :--- | :--- |
-| `set <秒>` | 修改自动清理的时间间隔（1-3600秒） | `/clearitems set 600` |
-| `add <物品ID>` | 将指定物品加入保护名单（支持 Tab 补全） | `/clearitems add minecraft:diamond` |
-| `remove <物品ID>` | 将物品从保护名单中移除 | `/clearitems remove minecraft:stone` |
-| `clear` | 立即执行一次手动清理并发布统计战报 | `/clearitems clear` |
-| `start` | 重置计时并开启自动清理 | `/clearitems start` |
-| `stop` | 停止自动清理逻辑并隐藏 BossBar | `/clearitems stop` |
+| `set <seconds>` | 修改自动清理的时间间隔 (1-3600s) / Set interval | `/clearitems set 600` |
+| `add <item_id>` | 将物品加入白名单 / Add item to whitelist | `/clearitems add minecraft:diamond` |
+| `remove <id>` | 将物品从白名单移除 / Remove from whitelist | `/clearitems remove minecraft:stone` |
+| `list` | **[New]** 查看当前白名单 / View whitelist | `/clearitems list` |
+| `clear` | 立即执行清理并发布战报 / Immediate cleanup | `/clearitems clear` |
+| `start / stop` | 开启或停止自动清理逻辑 / Toggle auto-cleanup | `/clearitems stop` |
 
-## 🛠️ 安装要求
+---
 
-1.  **游戏版本**: Minecraft `1.21.x`
-2.  **加载器**: [Fabric Loader](https://fabricmc.net/)
-3.  **前置插件**: [Fabric API](https://modrinth.com/mod/fabric-api)
+## 🛠️ 安装要求 / Requirements
 
-> **注意**：该mod已移除 OP 权限限制。如果你的服务器属于公网开放服务器且担心恶意操作，请在配置文件中手动管理或使用权限插件。
+1. **Minecraft**: `1.21.x`
+2. **Fabric Loader** & **[Fabric API](https://modrinth.com/mod/fabric-api)**
+3. **注意 / Notice**: 本模组已移除硬编码的 OP 权限限制，建议公网服务器配合 **LuckPerms** 使用权限节点（如 `clearitems.admin`）。
+   *Mandatory OP checks removed; use **LuckPerms** for node-based control on public servers.*
 
-## ⚖️ 开源协议
+---
 
-本项目采用 MIT License 开源。您可以自由地分发、修改和在您的服务器中使用。
+## 🗺️ 开发计划 / Roadmap
 
-## 🚀 v1.1.1 核心特性
+- [x] **v1.1.1 (Current)**: 专注于 ActionBar 显示、稳定性修复与 `/clearitems list` 功能。
+  *Focused on ActionBar display, stability fixes, and whitelist query.*
+- [ ] **v1.2.0 (Developing)**: 
+  - [ ] 引入 `config.json` 配置文件系统与热加载。 / *Config file system & Hot-reload.*
+  - [ ] 实现 **BossBar** 与 **ActionBar** 自由切换显示。 / *Toggle between BossBar and ActionBar.*
 
-* **🟢 轻量级 ActionBar 提醒**：倒计时由屏幕顶部的进度条转为快捷栏上方的**彩色文字**显示。
-    * **优势**：不占用 BossBar 资源，完美兼容其他修改 UI、Boss 血条或任务提示的模组，不遮挡战斗视线。
-    * **智能变色**：根据剩余时间自动切换（绿色 > 黄色 > 红色加粗），视觉反馈直观。
-* **🛠️ 极致稳定性修复**：彻底修复了在重度混淆环境下因权限判定导致的 `NoSuchMethodError` 问题，确保在重型整合包中秒速启动。
-* **🛡️ 智能动态白名单**：支持在游戏内实时 `add`（添加）或 `remove`（移除）受保护物品。
-* **📋 白名单查询**：**[新]** 使用 `/clearitems list` 指令一键查看当前所有受保护物品。
-* **📈 精准清理战报**：精确统计并通报掉落物的**具体总个数**（如：一组 64 个物品计为 64 个），优化效果一目了然。
+---
 
-## 🗺️ 开发计划 (Roadmap)
-* **v1.1.1 (Current)**: 专注于 ActionBar 显示与极致稳定性。
-* **v1.1.2 (Upcoming)**: 计划回归 **BossBar (进度条)** 显示模式，并提供显示切换功能，满足更多视觉偏好。
+## 📝 配置文件 / Config Example
 
-## 📝 配置文件示例
-
-文件位于 `.minecraft/config/clearitems.json`，格式如下：
-
+文件位于 `config/clearitems.json`：
 ```json
 {
   "interval": 300,
