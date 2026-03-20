@@ -5,8 +5,6 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.boss.BossBar;
-import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -14,73 +12,67 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 
 public class ClearMod implements ModInitializer {
-    private static int ticksLeft = -1;
-    private static final ServerBossBar bossBar = new ServerBossBar(
-            Text.literal("§6[ClearItems] 距离下一次清理"),
-            BossBar.Color.BLUE,
-            BossBar.Style.PROGRESS
-    );
+    private static int timeLeft = 300;
+    private static int tickCounter = 0;
 
     @Override
     public void onInitialize() {
         ConfigManager.loadConfig();
+        if (ConfigManager.config != null) {
+            timeLeft = ConfigManager.config.interval;
+        }
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             ClearCommand.register(dispatcher, registryAccess);
         });
 
         ServerTickEvents.END_SERVER_TICK.register(server -> {
-            if (ticksLeft > 0) {
-                ticksLeft--;
-                updateBossBar(server);
-            } else if (ticksLeft == 0) {
-                executeClear(server);
-                resetTimer();
+            if (ConfigManager.config == null || !ConfigManager.config.enabled) return;
+
+            tickCounter++;
+            if (tickCounter >= 20) {
+                tickCounter = 0;
+                timeLeft--;
+
+                if (timeLeft <= 0) {
+                    executeClear(server);
+                    timeLeft = ConfigManager.config.interval;
+                }
+
+                if (ConfigManager.config.showActionBar) {
+                    sendActionBar(server, timeLeft);
+                }
             }
         });
-
-        resetTimer();
-    }
-
-    private static void updateBossBar(MinecraftServer server) {
-        float maxTicks = ConfigManager.config.interval * 20f;
-        bossBar.setPercent(Math.max(0, Math.min(1, ticksLeft / maxTicks)));
-        int seconds = ticksLeft / 20;
-        bossBar.setName(Text.literal("§6[ClearItems] 清理倒计时: §e" + seconds + "秒"));
-        for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-            bossBar.addPlayer(player);
-        }
     }
 
     public static void resetTimer() {
-        ticksLeft = ConfigManager.config.interval * 20;
-        bossBar.setVisible(true);
+        if (ConfigManager.config != null) timeLeft = ConfigManager.config.interval;
+        tickCounter = 0;
     }
 
-    public static void stopAutoClear() {
-        ticksLeft = -1;
-        bossBar.setVisible(false);
+    private void sendActionBar(MinecraftServer server, int time) {
+        String color = (time <= 10) ? "§c§l" : (time <= 30 ? "§e" : "§a");
+        Text text = Text.literal(color + "⌛ 清理倒计时: " + time + "s");
+        for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+            player.sendMessage(text, true);
+        }
     }
 
-
-    public static int executeClear(MinecraftServer server) {
-        int totalDroppedItems = 0;
+    public static void executeClear(MinecraftServer server) {
+        int count = 0;
         for (ServerWorld world : server.getWorlds()) {
             for (Entity entity : world.iterateEntities()) {
                 if (entity instanceof ItemEntity item) {
                     String itemId = Registries.ITEM.getId(item.getStack().getItem()).toString();
-                    if (!ConfigManager.config.whiteList.contains(itemId)) {
-
-                        totalDroppedItems += item.getStack().getCount();
-                        item.discard();
+                    if (ConfigManager.config != null && !ConfigManager.config.whiteList.contains(itemId)) {
+                        entity.discard();
+                        count++;
                     }
                 }
             }
         }
-
-        final int finalCount = totalDroppedItems;
-
-        server.getPlayerManager().broadcast(Text.literal("§b[ClearItems] 清理完成！共清除了 " + finalCount + " 个垃圾！"), false);
-        return finalCount;
+        int finalCount = count;
+        server.getPlayerManager().broadcast(Text.literal("§6[ClearItems] §f清理完成，共移除 §e" + finalCount + " §f个掉落物"), false);
     }
 }

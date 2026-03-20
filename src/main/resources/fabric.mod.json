@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "clearitems",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "name": "ClearItems",
   "description": "一个轻量化、可视化的服务器掉落物清理工具。支持 BossBar 倒计时、物品数量统计及动态白名单管理。",
   "authors": [
