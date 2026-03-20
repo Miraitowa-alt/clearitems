@@ -23,19 +23,19 @@
 
 ## ✨ 核心特性 / Key Features
 
-* **📊 全程可视化 / Full Visualization** ;
+* **📊 全程可视化 / Full Visualization** :
   支持使用 **BossBar** 或 **ActionBar** 实时显示彩色倒计时。根据剩余时间自动切换颜色（绿色 > 黄色 > 红色加粗），不遮挡战斗视线，完美兼容重型整合包。
   *Supports **BossBar** or **ActionBar** real-time countdown with dynamic colors (Green > Yellow > Bold Red). Avoids HUD clutter and overlaps.*
 
-* **🛡️ 智能动态白名单 / Smart Dynamic Whitelist** ;
+* **🛡️ 智能动态白名单 / Smart Dynamic Whitelist** :
   支持在游戏内实时管理受保护物品（如钻石、附魔书）。被加入白名单的物品将永远不会被自动清理。
   *Manage protected items (e.g., diamonds, enchanted books) in-game via commands. Whitelisted items are never cleared.*
 
-* **📈 精准清理战报 / Precise Reporting** ;
+* **📈 精准清理战报 / Precise Reporting** :
   精确统计并通报掉落物的**具体总个数**（如：一组 64 个物品计为 64 个），让优化效果一目了然。
   *Accurately counts total item stacks (e.g., 64 items counted as 64, not 1 entity) for clear feedback.*
 
-* **🚀 极简性能开销 / Minimal Overhead** ;
+* **🚀 极简性能开销 / Minimal Overhead** :
   基于原生 Fabric API 构建，针对重度混淆环境深度优化，确保秒速启动与极端稳定性。
   *Built on native Fabric API; optimized for heavily obfuscated environments and maximum uptime.*
 
